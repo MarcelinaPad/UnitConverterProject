@@ -1,5 +1,7 @@
 package converter;
 
+import weather.WeatherFetcher;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -11,33 +13,40 @@ public class UnitConverter {
         while (!validInput) {
             try {
 
-        System.out.println("Choose your conversion options: ");
-        System.out.println("1. Kilometers to miles ");
-        System.out.println("2. Miles to kilometers ");
-        System.out.println("3. Celsius to Fahrenheit ");
-        System.out.println("4. Fahrenheit to Celsius ");
+                System.out.println("Choose your conversion options: ");
+                System.out.println("1. Kilometers to miles ");
+                System.out.println("2. Miles to kilometers ");
+                System.out.println("3. Celsius to Fahrenheit ");
+                System.out.println("4. Fahrenheit to Celsius ");
+                System.out.println("5. Get current weather");
 
-        int choice = scanner.nextInt();
-        validInput = true;
+                int choice = scanner.nextInt();
+                validInput = true;
 
-        switch (choice) {
+                switch (choice) {
 
-            case 1:
-                convertKilometersToMiles(scanner);
-                break;
-            case 2:
-                convertMilesToKilometers(scanner);
-                break;
-            case 3:
-                convertCelsiusToFahrenheit(scanner);
-                break;
-            case 4:
-                convertFahrenheitToCelsius(scanner);
-                break;
-            default:
-                System.out.println("Incorrect choice. Please enter a valid option.");
-                validInput = false;
-        }
+                    case 1:
+                        convertKilometersToMiles(scanner);
+                        break;
+                    case 2:
+                        convertMilesToKilometers(scanner);
+                        break;
+                    case 3:
+                        convertCelsiusToFahrenheit(scanner);
+                        break;
+                    case 4:
+                        convertFahrenheitToCelsius(scanner);
+                        break;
+
+                    case 5:
+                        System.out.println("Enter the city name: ");
+                        String city = scanner.next();
+                        WeatherFetcher.fetchWeather(city);
+                        break;
+                    default:
+                        System.out.println("Incorrect choice. Please enter a valid option.");
+                        validInput = false;
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.next();
@@ -45,10 +54,6 @@ public class UnitConverter {
         }
         scanner.close();
     }
-
-
-
-
 
 
     private void convertKilometersToMiles(Scanner scanner) {
