@@ -1,10 +1,15 @@
 package converter;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UnitConverter {
     public void start() {
         Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
+
+        while (!validInput) {
+            try {
 
         System.out.println("Choose your conversion options: ");
         System.out.println("1. Kilometers to miles ");
@@ -13,44 +18,87 @@ public class UnitConverter {
         System.out.println("4. Fahrenheit to Celsius ");
 
         int choice = scanner.nextInt();
+        validInput = true;
 
         switch (choice) {
+
             case 1:
-                System.out.println("Kilometers to miles conversion selected");
-                System.out.println("Enter the number of kilometers");
-                double kilometers = scanner.nextDouble();
-                double miles = kilometers * 0.621371;
-                System.out.println(kilometers + " kilometers is " + miles + " miles");
+                convertKilometersToMiles(scanner);
                 break;
-
             case 2:
-                System.out.println("Miles to kilometers conversion selected ");
-                System.out.println("Enter the number of miles");
-                miles = scanner.nextDouble();
-                kilometers = miles * 1.6093;
-                System.out.println(miles + " miles is " + kilometers + " kilometers ");
+                convertMilesToKilometers(scanner);
                 break;
-
-
             case 3:
-                System.out.println("Celsius to Fahrenheit conversion selected");
-                System.out.println("Enter the number of degrees Celsius");
-                double celsius = scanner.nextDouble();
-                double fahrenheit = (celsius * 9 / 5) + 32;
-                System.out.println(celsius + " C is " + fahrenheit + " F");
+                convertCelsiusToFahrenheit(scanner);
                 break;
-
             case 4:
-                System.out.println("Farenheit to celsius conversion selected");
-                System.out.println("Enter the number of degrees Fahrenheit");
-                fahrenheit = scanner.nextDouble();
-                celsius = (fahrenheit - 32) * 5 / 9;
-                System.out.println(fahrenheit + " Fahrenheit is " + celsius + " Celsius");
+                convertFahrenheitToCelsius(scanner);
                 break;
-
             default:
-                System.out.println("Incorrect choice");
+                System.out.println("Incorrect choice. Please enter a valid option.");
+                validInput = false;
+        }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next();
+            }
         }
         scanner.close();
+    }
+
+
+
+
+
+
+    private void convertKilometersToMiles(Scanner scanner) {
+        try {
+            System.out.println("Enter the number of kilometers");
+            double kilometers = scanner.nextDouble();
+            double miles = kilometers * 0.621371;
+            System.out.println(kilometers + " kilometers is " + miles + " miles");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next();
+        }
+    }
+
+
+    private void convertMilesToKilometers(Scanner scanner) {
+        try {
+            System.out.println("Enter the number of miles");
+            double miles = scanner.nextDouble();
+            double kilometers = miles * 1.6093;
+            System.out.println(miles + " miles is " + kilometers + " kilometers ");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next();
+        }
+    }
+
+
+    private void convertCelsiusToFahrenheit(Scanner scanner) {
+        try {
+            System.out.println("Enter the number of degrees Celsius");
+            double celsius = scanner.nextDouble();
+            double fahrenheit = (celsius * 9 / 5) + 32;
+            System.out.println(celsius + " C is " + fahrenheit + " F");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next();
+        }
+    }
+
+
+    private void convertFahrenheitToCelsius(Scanner scanner) {
+        try {
+            System.out.println("Enter the number of degrees Fahrenheit");
+            double fahrenheit = scanner.nextDouble();
+            double celsius = (fahrenheit - 32) * 5 / 9;
+            System.out.println(fahrenheit + " F is " + celsius + " C");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next();
+        }
     }
 }
