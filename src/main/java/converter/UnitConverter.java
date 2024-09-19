@@ -1,7 +1,9 @@
 package converter;
 
+import weather.WeatherDetails;
 import weather.WeatherFetcher;
 
+import java.net.http.HttpClient;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -41,7 +43,9 @@ public class UnitConverter {
                     case 5:
                         System.out.println("Enter the city name: ");
                         String city = scanner.next();
-                        WeatherFetcher.fetchWeather(city);
+                        HttpClient httpClient = HttpClient.newHttpClient();
+                        WeatherDetails weatherDetails = new WeatherFetcher(httpClient).fetchWeather(city);
+                        System.out.println(weatherDetails.toString());
                         break;
                     default:
                         System.out.println("Incorrect choice. Please enter a valid option.");
